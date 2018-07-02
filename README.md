@@ -1,3 +1,0 @@
-# social-searcher
-
-Added Wiki
