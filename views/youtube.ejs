@@ -1,0 +1,41 @@
+<html>
+
+<head>
+  <title>Twitter Data</title>
+  <link href="/assets/styles.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous">
+  </script>
+</head>
+
+<body>
+
+
+  <div id="content-table">
+    <script src = "/assets/myfacebook.js" ></script>
+
+
+<fb:login-button
+scope="public_profile,email"
+onlogin="checkLoginState();">
+</fb:login-button>
+
+    <form method="POST" action='/checkChannel' name="myForm" id="signupForm">
+      <input type="text" name="search" placeholder="Enter Your Search..." required="true" />
+      <input type="radio" name="socialmedia" value="Twitter" checked> Twitter
+       <input type="radio" name="socialmedia" value="Youtube"> Youtube
+      <button type="submit"><i class="fa fa-search" style="font-size:24px; margin-right: 12px;" aria-hidden="true"></i></button>
+    </form>
+
+            <% for (var i=0;i<abc.items.length;i++){%>
+
+                <iframe width="420" height="315"
+                    src="<%= 'https://www.youtube.com/embed/'+abc.items[i].id.videoId %>">
+                  </iframe>
+              <% } %>
+
+      </div>
+      </div>
+</body>
+
+</html>
