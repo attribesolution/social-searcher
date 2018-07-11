@@ -12,11 +12,21 @@
 
 
   <div id="content-table">
-    <script src="/assets/tweets-list.js"></script>
-    <form name="myForm" id="signupForm">
+    <script src = "/assets/myfacebook.js" ></script>
+
+
+<fb:login-button
+scope="public_profile,email"
+onlogin="checkLoginState();">
+</fb:login-button>
+
+    <form method="POST" action='/checkChannel' name="myForm" id="signupForm">
       <input type="text" name="search" placeholder="Enter Your Search..." required="true" />
+      <input type="radio" name="socialmedia" value="Twitter" checked> Twitter
+       <input type="radio" name="socialmedia" value="Youtube"> Youtube
       <button type="submit"><i class="fa fa-search" style="font-size:24px; margin-right: 12px;" aria-hidden="true"></i></button>
     </form>
+
     <% for (var i=0;i<abc.length;i++){%>
       <div class="card card-1">
         <img src="<%= abc[i].profile_image_url%>" alt="profile_pic" style="width:80px; border-radius: 50%;">
