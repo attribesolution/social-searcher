@@ -33,4 +33,7 @@ Note: On a successful run a message **listening to port 3000** will be printed o
 
 ### License and copyright
 **© Owais Ibrahim**
+**© Shahiq Qureshi**
+**© Ibrahim Jawed**
+**© Taha Asif**
 
