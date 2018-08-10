@@ -1,0 +1,39 @@
+// import * as twit from "twitter";
+import * as twit from "twit";
+import SMP from "./SMP";
+
+export class Twitter implements SMP {
+  private result: JSON[];
+  private api: twit;
+  constructor() {
+    this.config();
+  }
+
+  searchByKeyword(params: JSON, resolve, reject) {
+    console.log(params);
+    this.api.get("search/tweets", params, (err, data, response) => {
+      if (err) {
+        console.log("API returned error: " + JSON.stringify(err));
+        reject(err);
+      } else {
+        this.result = data;
+        //console.log(data);
+        resolve(data);
+      }
+    });
+  }
+
+  normalizeResult(data: JSON) {
+    throw new Error("Method not implemented.");
+  }
+
+  public config() {
+    this.api = new twit({
+      // access_token_key: "1009470072056840192-RymIYBTusOOMKVApihFbyQ2CHA9t1I",
+      access_token: process.env.TW_ACCESS_TOKEN,
+      access_token_secret: process.env.TW_TOKEN_SECRET,
+      consumer_key: process.env.TW_CONSUMER_KEY,
+      consumer_secret: process.env.TW_CONSUMER_SECRET,
+    });
+  }
+}
