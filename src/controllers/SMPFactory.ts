@@ -14,7 +14,7 @@ import {GooglePlus} from "./googleplusController";
 import {Flickr} from "./flickrController";
 import {Tumblr} from "./tumblrController";
 import {VimeoModule} from "./vimeoController";
-import {DailyMotion} from "./dailymotionWrapper/dailymotionController";
+import {DailyMotion} from "./dailymotionController";
 
 class SMPfactory {
   constructor() {

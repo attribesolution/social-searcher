@@ -1,6 +1,6 @@
 // const DMClient = require("./index").client;
-import SMP from "../SMP";
-const DM = require("./index.js");
+import SMP from "./SMP";
+const DM = require("dailymotion-sdk");
 const DMClient = DM.client;
 let client: any;
 
