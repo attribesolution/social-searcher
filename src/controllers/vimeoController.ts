@@ -1,5 +1,5 @@
 import SMP from "./SMP";
-import * as vimeoModule from "vimeo";
+import * as vimeoModule from "../../node_modules/vimeo";
 const Vimeo = vimeoModule.Vimeo;
 
 export class VimeoModule implements SMP {

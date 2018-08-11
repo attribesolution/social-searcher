@@ -1,7 +1,9 @@
 import SMP from "./SMP";
 import * as fs from "fs";
 import * as readline from "readline";
-import {google} from "googleapis";
+import {google, appsactivity_v1, plus_v1} from "googleapis";
+import { SchemaType } from "../../node_modules/googleapis/build/src/shared/src";
+import { AxiosResponse } from "../../node_modules/axios";
 let OAuth2 = google.auth.OAuth2;
 
 const SCOPES = ["https://www.googleapis.com/auth/plus.me"];
@@ -10,10 +12,22 @@ const TOKEN_DIR =
   "/.credentials/";
 const TOKEN_PATH = TOKEN_DIR + "youtube-nodejs-quickstart.json";
 
+// Don't remove this .. 
+interface Param {
+  query?: string;
+  maxResults: string;
+  language?: string;
+  orderBy?: string;
+  pageToken?: string;
+}
+
+
+
+
 export class GooglePlus implements SMP {
   private content: any;
   private authentication: any;
-  private googlePlusData: JSON;
+  private googlePlusData: plus_v1.Schema$ActivityFeed [];
   constructor() {
     this.authorize();
   }

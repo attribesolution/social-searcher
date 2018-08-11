@@ -1,5 +1,8 @@
 /* ******************* Autocomplete **************************/
 export class GoogleTrends {
+
+  
+
   constructor() {
     this.googleTrends = require("../node_modules/google-trends-api/lib/google-trends-api.min.js");
   }
