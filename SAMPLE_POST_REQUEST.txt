@@ -7,12 +7,12 @@
 			    "query":"imran khan"
 			}
 		},
-    {
-      "name": "twitter",
-      "params":{
-        "q": "Imran khan"
-      }
-    },
+		{
+			"name": "twitter",
+			"params":{
+				"q": "Imran khan"
+			}
+		},
 		{
 			"name": "googleplus",
 			"params": {
