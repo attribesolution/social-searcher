@@ -1,0 +1,13 @@
+{
+	"tag":"consumer",
+	"smpList": [ 
+		
+		{
+			"name": ["youtube","twitter","vimeo"],
+			"params": {
+				"part": "id, snippet",
+			    "query":"imran khan"
+			}
+		}
+	]
+}

@@ -1,4 +1,5 @@
 {
+	"tag":"author",
 	"smpList": [ 
 		
 		{
@@ -15,7 +16,7 @@
 				"q": "Imran khan"
 			}
 		},
-	
+		
 		{
 			"name": "googleplus",
 			"params": {
@@ -23,28 +24,28 @@
 			    "query":"imran khan"
 			}
 		},
-	
+		
 		{
 			"name": "flickr",
 			"params": {
 			    "text":"imran khan"
 			}
 		},
-	
+		
 		{
 			"name": "tumblr",
 			"params": {
 			    "query":"imran khan"
 			}
 		},
-	
+		
 		{
 			"name": "vimeo",
 			"params": {
 			    "query":"Nawaz Shareef"
 			}
 		},
-	
+		
 		{
 			"name": "dailymotion",
 			"params": {
