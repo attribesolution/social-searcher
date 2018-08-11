@@ -4,3 +4,4 @@ build
 .history
 .env
 IgnoreMe
+*.js
