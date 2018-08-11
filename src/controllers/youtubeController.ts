@@ -16,7 +16,7 @@ var TOKEN_PATH = TOKEN_DIR + "youtube-nodejs-quickstart.json";
 
 export class Youtube implements SMP {
   private authentication: OAuth2Client;
-  public youtubeData: any;
+  public youtubeData: Object;
 
   constructor() {
     // Authorize a client with the loaded credentials, then call the YouTube API.

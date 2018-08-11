@@ -3,24 +3,27 @@ import * as twit from "twit";
 import SMP from "./SMP";
 
 export class Twitter implements SMP {
-  private result: JSON[];
+  private result: Object;
   private api: twit;
   constructor() {
     this.config();
   }
 
   searchByKeyword(params: JSON, resolve, reject) {
-    console.log(params);
-    this.api.get("search/tweets", params, (err, data, response) => {
-      if (err) {
-        console.log("API returned error: " + JSON.stringify(err));
-        reject(err);
-      } else {
-        this.result = data;
-        //console.log(data);
-        resolve(data);
-      }
-    });
+    this.api.get(
+      "search/tweets",
+      params as twit.Params,
+      (err, data, response) => {
+        if (err) {
+          console.log("API returned error: " + JSON.stringify(err));
+          reject(err);
+        } else {
+          this.result = data;
+          //console.log(data);
+          resolve(data);
+        }
+      },
+    );
   }
 
   normalizeResult(data: JSON) {

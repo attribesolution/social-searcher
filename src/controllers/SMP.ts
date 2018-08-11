@@ -5,7 +5,7 @@
  * @export SMP
  */
 interface SMP {
-  searchByKeyword(query: JSON, resolve, reject);
+  searchByKeyword(query: Params, resolve, reject);
   normalizeResult(data: JSON);
 }
 
