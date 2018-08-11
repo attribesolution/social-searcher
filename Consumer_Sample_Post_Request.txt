@@ -11,3 +11,19 @@
 		}
 	]
 }
+
+
+==============================================================================
+
+{
+	"tag":"consumer",
+	"smpList": [ "youtube","twitter","vimeo"],
+	"params": {
+			"part": "id, snippet",
+			"query":"imran khan"
+			"orderBy":"asc"
+			"lang":"en,fr"
+		}
+		
+	
+}
