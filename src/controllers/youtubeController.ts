@@ -2,6 +2,8 @@ import SMP from "./SMP";
 import * as fs from "fs";
 import * as readline from "readline";
 import {google} from "googleapis";
+import {OAuth2Client} from "../../node_modules/google-auth-library";
+import {Credentials} from "../../node_modules/google-auth-library/build/src/auth/credentials";
 let OAuth2 = google.auth.OAuth2;
 
 // If modifying these scopes, delete your previously saved credentials
@@ -13,9 +15,8 @@ var TOKEN_DIR =
 var TOKEN_PATH = TOKEN_DIR + "youtube-nodejs-quickstart.json";
 
 export class Youtube implements SMP {
-  private content: any;
-  private authentication: any;
-  public youtubeData: JSON;
+  private authentication: OAuth2Client;
+  public youtubeData: any;
 
   constructor() {
     // Authorize a client with the loaded credentials, then call the YouTube API.
@@ -26,16 +27,16 @@ export class Youtube implements SMP {
     var clientSecret = process.env.YT_CLIENT_SECRET;
     var clientId = process.env.YT_CLIENT_ID;
     var redirectUrl = process.env.YT_REDIRECT_URIS;
-    var oauth2Client = new OAuth2(clientId, clientSecret, redirectUrl);
-
+    let oauth2Client = new OAuth2(clientId, clientSecret, redirectUrl);
+    let token: Buffer;
     try {
-      var token = fs.readFileSync(TOKEN_PATH);
+      token = fs.readFileSync(TOKEN_PATH);
       // console.log('token = '+ token);
     } catch (err) {
       this.getNewToken(oauth2Client);
       return;
     }
-    oauth2Client.credentials = JSON.parse(token);
+    oauth2Client.credentials = JSON.parse(token.toString("utf-8"));
 
     // Store the token for later use
     this._authentication = oauth2Client;
@@ -129,8 +130,8 @@ export class Youtube implements SMP {
         console.log("The API returned an error: " + err);
         return;
       }
-      var str = JSON.stringify(response.data.items, 0, 2);
-      res.render("code_mockup", {data: str});
+      // var str = JSON.stringify(response.data.items, 0, 2);
+      res.render("code_mockup", {data: response.data.items});
     });
   }
 
@@ -164,10 +165,10 @@ export class Youtube implements SMP {
   }
 
   get result() {
-    return this._result;
+    return this.result;
   }
   set result(val) {
-    this._result = val;
+    this.result = val;
   }
 
   //
@@ -202,21 +203,24 @@ export class Youtube implements SMP {
     var params = {
       auth: this.authentication,
       part: "snippet",
+      q: "",
+      maxResults: 25,
+      order: "relevance",
+      relevanceLanguage: "",
+      safeSearch: "none",
     };
     if (reqData.query) {
       params.q = reqData.query;
     }
     if (reqData.yt_max_results) {
       params.maxResults = reqData.yt_max_results;
-    } else {
-      params.maxResults = "25";
     }
     if (reqData.yt_orderby) {
       params.order = reqData.yt_orderby;
     }
-    if (reqData.yt_regionCode) {
-      params.regionCode = reqData.yt_regionCode;
-    }
+    // if (reqData.yt_regionCode) {
+    //   params.regionCode = reqData.yt_regionCode;
+    // }
     if (reqData.yt_relevanceLanguage) {
       params.relevanceLanguage = reqData.yt_relevanceLanguage;
     }

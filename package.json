@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "rnc": "rm -r build && tsc -w",
     "ts": "tsc -w",
     "server": "nodemon ./build/index.js",
-    "start": "tsc && node ./build/index.js"
+    "start": "node ./build/index.js"
   },
   "keywords": [],
   "author": "",

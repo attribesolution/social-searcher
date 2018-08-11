@@ -1,0 +1,75 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Users\owais\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js start
+
+PATH: 
+  C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\owais\bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\Program Files (x86)\Brackets\command;C:\WINDOWS\System32\OpenSSH;C:\Program Files\nodejs;C:\Program Files\Git\cmd;C:\Program Files\PuTTY;C:\Program Files\Microsoft VS Code\bin;C:\Users\owais\AppData\Local\Microsoft\WindowsApps;C:\Users\owais\AppData\Roaming\npm;C:\Program Files\Microsoft VS Code
+
+Yarn version: 
+  1.9.4
+
+Node version: 
+  8.11.3
+
+Platform: 
+  win32 x64
+
+Trace: 
+  SyntaxError: C:\Users\owais\Documents\VSCode\social_search_API\package.json: Unexpected token / in JSON at position 217
+      at JSON.parse (<anonymous>)
+      at C:\Users\owais\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:1130:59
+      at Generator.next (<anonymous>)
+      at step (C:\Users\owais\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:92:30)
+      at C:\Users\owais\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:103:13
+      at <anonymous>
+
+npm manifest: 
+  {
+    "name": "social-searcher-API",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+      "rnc": "rm -r build && tsc -w",
+      "ts": "tsc -w",
+      "server": "nodemon ./build/index.js",
+      // "start": "tsc && node ./build/index.js"
+      "start": "node ./build/index.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+      "@types/dotenv": "^4.0.3",
+      "@types/express": "^4.16.0",
+      "@types/node": "^10.5.7",
+      "@types/twit": "^2.2.19",
+      "@types/vimeo": "0.0.31",
+      "body-parser": "^1.18.3",
+      "dailymotion-sdk": "^0.1.13",
+      "dotenv": "^6.0.0",
+      "ejs": "^2.6.1",
+      "ejs-lint": "^0.3.0",
+      "es6-promise": "^4.2.4",
+      "express": "^4.16.3",
+      "flickrapi": "^0.6.0",
+      "google-trends-api": "^4.7.0",
+      "googleapis": "^32.0.0",
+      "node": "^10.7.0",
+      "nodemailer": "^4.6.7",
+      "nodemon": "^1.18.3",
+      "tumblr.js": "^2.0.0",
+      "twit": "^2.2.11",
+      "twitter": "^1.7.1",
+      "typescript": "^3.0.1",
+      "vimeo": "^2.1.0"
+    },
+    "devDependencies": {
+      "@types/twitter": "0.0.28"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
