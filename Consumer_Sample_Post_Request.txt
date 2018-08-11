@@ -1,0 +1,12 @@
+
+{
+	"tag":"consumer",
+	"smpList": [ "youtube","twitter","vimeo"],
+	"params": {
+			"query":"imran khan",
+			"orderBy":"asc",
+			"lang":"en,fr",
+      "sort":"",
+      "maxResults":10,
+		}		
+}

@@ -1,5 +1,6 @@
 enum query {
-  YOUTUBE = "query",
+  YOUTUBE,
+  FLICKR = "query",
   TWITTER = "q",
 }
 enum count {
@@ -7,20 +8,20 @@ enum count {
   TWITTER = "count",
 }
 
-function f(str: string): {} {
-  let _query: string;
-  let params = {};
-  if (str === "YOUTUBE") {
-    _query = query.YOUTUBE;
-  } else if (str === "TWITTER") {
-    _query = query.TWITTER;
-  }
-  params[_query] = "Imran Khan";
-  return params;
-}
+// function f(str: string): {} {
+//   let _query: string;
+//   let params = {};
+//   if (str === "YOUTUBE") {
+//     _query = query.YOUTUBE;
+//   } else if (str === "TWITTER") {
+//     _query = query.TWITTER;
+//   }
+//   params[_query] = "Imran Khan";
+//   return params;
+// }
 
-console.log(f("TWITTER"));
-console.log(f("YOUTUBE"));
+// console.log(f("TWITTER"));
+console.log(f1("FLICKR"));
 
 //Short Version
 function f1(str: string): {} {
