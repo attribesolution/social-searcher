@@ -9,7 +9,6 @@
     "server": "nodemon ./build/index.js",
     "start": "node ./build/index.js",
     "taha": "tsc -w && node ./build/index.js"
-
   },
   "keywords": [],
   "author": "",
