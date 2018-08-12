@@ -1,5 +1,7 @@
 // const DMClient = require("./index").client;
 import SMP from "./SMP";
+import * as dotenv from "dotenv";
+dotenv.config();
 const DM = require("dailymotion-sdk");
 const DMClient = DM.client;
 let client: any;

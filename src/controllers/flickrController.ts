@@ -1,4 +1,6 @@
 import * as flickrapi from "flickrapi";
+import * as dotenv from "dotenv";
+dotenv.config();
 import SMP from "./SMP";
 
 const flickrOptions = {

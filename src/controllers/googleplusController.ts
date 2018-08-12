@@ -1,6 +1,8 @@
 import SMP from "./SMP";
 import * as fs from "fs";
 import * as readline from "readline";
+import * as dotenv from "dotenv";
+dotenv.config();
 import {google, appsactivity_v1, plus_v1} from "googleapis";
 import {SchemaType} from "../../node_modules/googleapis/build/src/shared/src";
 import {AxiosResponse} from "../../node_modules/axios";

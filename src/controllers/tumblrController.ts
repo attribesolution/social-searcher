@@ -1,5 +1,7 @@
 import SMP from "./SMP";
 import * as tumblr from "tumblr.js";
+import * as dotenv from "dotenv";
+dotenv.config();
 
 export class Tumblr implements SMP {
   private client: any;
