@@ -9,7 +9,7 @@ export class Twitter implements SMP {
     this.config();
   }
 
-  searchByKeyword(params: JSON, resolve, reject) {
+  public searchByKeyword(params: JSON, resolve, reject) {
     this.api.get(
       "search/tweets",
       params as twit.Params,

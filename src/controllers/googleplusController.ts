@@ -2,8 +2,8 @@ import SMP from "./SMP";
 import * as fs from "fs";
 import * as readline from "readline";
 import {google, appsactivity_v1, plus_v1} from "googleapis";
-import { SchemaType } from "../../node_modules/googleapis/build/src/shared/src";
-import { AxiosResponse } from "../../node_modules/axios";
+import {SchemaType} from "../../node_modules/googleapis/build/src/shared/src";
+import {AxiosResponse} from "../../node_modules/axios";
 let OAuth2 = google.auth.OAuth2;
 
 const SCOPES = ["https://www.googleapis.com/auth/plus.me"];
@@ -12,7 +12,7 @@ const TOKEN_DIR =
   "/.credentials/";
 const TOKEN_PATH = TOKEN_DIR + "youtube-nodejs-quickstart.json";
 
-// Don't remove this .. 
+// Don't remove this ..
 interface Param {
   query?: string;
   maxResults: string;
@@ -21,13 +21,10 @@ interface Param {
   pageToken?: string;
 }
 
-
-
-
 export class GooglePlus implements SMP {
   private content: any;
   private authentication: any;
-  private googlePlusData: plus_v1.Schema$ActivityFeed [];
+  private googlePlusData: plus_v1.Schema$ActivityFeed[];
   constructor() {
     this.authorize();
   }
@@ -74,7 +71,7 @@ export class GooglePlus implements SMP {
    */
 
   public searchByKeyword(reqData, resolve, reject) {
-    const params = this.checkParameters(reqData) as any;
+    //const params = this.checkParameters(reqData) as any;
 
     const service = google.plus({
       auth: process.env.GP_AUTH, // specify your API key here
@@ -82,7 +79,7 @@ export class GooglePlus implements SMP {
     });
 
     service.activities
-      .search(params)
+      .search(reqData)
       .then(response => {
         // res.render('index', {youtube_data: response.data.items, data_type: 'youtube'});
         this.googlePlusData = response.data.items;
