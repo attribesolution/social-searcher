@@ -1,6 +1,8 @@
 import SMP from "./SMP";
 import * as fs from "fs";
 import * as readline from "readline";
+import * as dotenv from "dotenv";
+dotenv.config();
 import {google} from "googleapis";
 import {OAuth2Client} from "../../node_modules/google-auth-library";
 import {Credentials} from "../../node_modules/google-auth-library/build/src/auth/credentials";

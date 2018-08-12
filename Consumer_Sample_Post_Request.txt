@@ -1,7 +1,7 @@
 
 
 {
-	"smpList": [ "youtube","twitter","vimeo"],
+	"smpList": [ "dailymotion"],
 	"params": {
 			"query":"imran khan",
       "maxResults":10

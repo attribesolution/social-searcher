@@ -1,7 +1,8 @@
 // import * as twit from "twitter";
 import * as twit from "twit";
 import SMP from "./SMP";
-
+import * as dotenv from "dotenv";
+dotenv.config();
 export class Twitter implements SMP {
   private result: Object;
   private api: twit;
