@@ -203,30 +203,12 @@ export class Youtube implements SMP {
     var params = {
       auth: this.authentication,
       part: "snippet",
-      q: "",
-      maxResults: 25,
+      q: reqData.q,
+      maxResults: reqData.maxResults,
       order: "relevance",
       relevanceLanguage: "",
       safeSearch: "none",
     };
-    if (reqData.query) {
-      params.q = reqData.query;
-    }
-    if (reqData.yt_max_results) {
-      params.maxResults = reqData.yt_max_results;
-    }
-    if (reqData.yt_orderby) {
-      params.order = reqData.yt_orderby;
-    }
-    // if (reqData.yt_regionCode) {
-    //   params.regionCode = reqData.yt_regionCode;
-    // }
-    if (reqData.yt_relevanceLanguage) {
-      params.relevanceLanguage = reqData.yt_relevanceLanguage;
-    }
-    if (reqData.yt_safeSearch) {
-      params.safeSearch = reqData.yt_safeSearch;
-    }
 
     return params;
   }
