@@ -42,7 +42,7 @@ export class DailyMotion implements SMP {
     // this.reject=reject;
     const self = this;
     new Promise((res, rej) => {
-      client.createToken(() => this.next(resolve, reject, reqData.query));
+      client.createToken(() => this.next(resolve, reject, reqData));
     });
   }
 
@@ -54,7 +54,7 @@ export class DailyMotion implements SMP {
   // you must create an access token prior making any requests
   // Otherwise, refresh your access_token/refresh_token pair
   // client.refreshToken(next);
-  private next(resolve: any, reject: any, datum: any) {
+  private next(resolve: any, reject: any, reqData: any) {
     // Now you should be able to make fully authenticated requests to the DM API
     // console.log(datum);
     const self = this;
@@ -73,8 +73,8 @@ export class DailyMotion implements SMP {
           "moods",
         ],
         // fields: ['list']
-        limit: 5,
-        search: datum,
+        limit: reqData.limit || 10,
+        search: reqData.query,
       },
       (err: any, req: any, data: any) => {
         if (err) {

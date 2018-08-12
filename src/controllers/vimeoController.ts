@@ -32,6 +32,7 @@ export class VimeoModule implements SMP {
           reject("not done vimeo");
         } else {
           this.VimeoData = body.data;
+          console.log(this.VimeoData);
           resolve(body.data);
         }
       },

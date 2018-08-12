@@ -19,6 +19,7 @@
     "@types/node": "^10.5.7",
     "@types/twit": "^2.2.19",
     "@types/vimeo": "0.0.31",
+    "array-unique": "^0.3.2",
     "body-parser": "^1.18.3",
     "dailymotion-sdk": "^0.1.13",
     "dotenv": "^6.0.0",
