@@ -16,16 +16,7 @@ export class VimeoModule implements SMP {
         // This returns the first page of videos containing the term "vimeo staff".
         // These videos will be sorted by most relevant to least relevant.
         path: "/videos",
-        query: {
-          //page: params.page,
-          per_page: params.per_page,
-          query: params.query,
-          sort: params.sort,
-          direction: params.direction,
-          filter: params.filter,
-          //uris:params.uris,
-          //links:params.links
-        },
+        query: params,
       },
       (error, body, statusCode, headers) => {
         if (error) {
@@ -76,28 +67,28 @@ export class VimeoModule implements SMP {
     // else {params.uris='';}
     // if (reqData.vimeo_links) { params.links = reqData.vimeo_links; console.log("\nid: " + params.links); }
     // else {params.links='';}
-    if (reqData.vimeo_count) {
-      params.page = reqData.vimeo_count;
+    if (reqData.page) {
+      params.page = reqData.page;
     } else {
       params.page = 1;
     }
-    if (reqData.vimeo_orderby) {
-      params.sort = reqData.vimeo_orderby;
+    if (reqData.sort) {
+      params.sort = reqData.sort;
     } else {
       params.sort = "relevant";
     }
-    if (reqData.vimeo_direction) {
-      params.direction = reqData.vimeo_direction;
+    if (reqData.direction) {
+      params.direction = reqData.direction;
     } else {
       params.direction = "asc";
     }
-    if (reqData.vimeo_per_page) {
-      params.per_page = reqData.vimeo_per_page;
+    if (reqData.per_page) {
+      params.per_page = reqData.per_page;
     } else {
       params.per_page = 10;
     }
-    if (reqData.vimeo_filter) {
-      params.filter = reqData.vimeo_filter;
+    if (reqData.filter) {
+      params.filter = reqData.filter;
     } else {
       params.filter = null;
     }
