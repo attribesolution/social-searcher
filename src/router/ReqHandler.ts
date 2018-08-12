@@ -59,7 +59,6 @@ export class RequestHandler {
 
     Promise.all(myeditList)
       .then(values => {
-        res.writeHead(200, {'Content-Type': 'application/json'});
         res.send(values);
       })
       .catch(err => {
@@ -93,7 +92,6 @@ export class RequestHandler {
 
     Promise.all(myeditList)
       .then(values => {
-        res.writeHead(200, {'Content-Type': 'application/json'});
         res.send(values);
       })
       .catch(err => {
