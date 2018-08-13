@@ -17,8 +17,8 @@ class Server {
 
   public config() {
     // config
-    this.app.use(bodyParser.json());
-    this.app.use(bodyParser.urlencoded({extended: false}));
+    // this.app.use(bodyParser.json());
+    this.app.use(bodyParser.urlencoded({extended: true}));
   }
 
   public routes(): void {
