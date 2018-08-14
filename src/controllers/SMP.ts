@@ -4,8 +4,13 @@
  * This will be used for achieving runtime polymorphism and combining the end result
  * @export SMP
  */
+  interface Params {
+    query ? : string
+  }
+
+
 interface SMP {
-  searchByKeyword(query: Params, resolve, reject);
+  searchByKeyword(query: any, resolve, reject);
   normalizeResult(data: JSON);
 }
 

@@ -123,7 +123,7 @@ export class RequestHandler {
     if (
       myParams.query !== "undefined" ||
       myParams.query != null ||
-      maxResults == 0
+      myParams.maxResults === 0
     ) {
       myParams.maxResults = 5;
     }
