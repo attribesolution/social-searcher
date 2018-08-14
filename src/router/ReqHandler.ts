@@ -70,34 +70,40 @@ export class RequestHandler {
   public handleSocialSearchRequest = (req: Request, res: Response) => {
     // Array of results
     // let result: JSON[] = new Array();
+
     let smpCreator = new SMPfactory();
     let numSocialMediaAccounts: number = 9;
     let myPromises = new Array(numSocialMediaAccounts);
     let myeditList = [];
     // Cycle through all the user requested smps
-    for (var _i = 0; _i < req.body.smpList.length; _i++) {
-      // Generate smp
-      this.smp = smpCreator.generate(req.body.smpList[_i]);
-      if (this.smp) {
-        // Call that smps search and initialize the result var with its result
-        //    result.push(null);  // Increase length of result array
-        let myParams = {};
-        myPromises[_i] = new Promise((resolve, reject) => {
-          myParams = this.resolveEnum(req.body.smpList[_i], req.body.params);
-          this.smp.searchByKeyword(myParams, resolve, reject);
-        });
-        myeditList.push(myPromises[_i]);
+    if (this.checkParameters(req.body.params)) {
+      for (var _i = 0; _i < req.body.smpList.length; _i++) {
+        // Generate smp
+        this.smp = smpCreator.generate(req.body.smpList[_i]);
+        if (this.smp) {
+          // Call that smps search and initialize the result var with its result
+          //    result.push(null);  // Increase length of result array
+          let myParams = {};
+          myPromises[_i] = new Promise((resolve, reject) => {
+            myParams = this.resolveEnum(req.body.smpList[_i], req.body.params);
+            this.smp.searchByKeyword(myParams, resolve, reject);
+          });
+          myeditList.push(myPromises[_i]);
+        }
       }
-    }
 
-    Promise.all(myeditList)
-      .then(values => {
-        res.send(values);
-      })
-      .catch(err => {
-        console.log("Reject_Error: " + err);
-        res.send(err);
-      });
+      Promise.all(myeditList)
+        .then(values => {
+          console.log(values);
+          res.send(values);
+        })
+        .catch(err => {
+          console.log("Reject_Error: " + err);
+          res.send(err);
+        });
+    } else {
+      res.status(403).send("Invalid parameters");
+    }
   };
 
   public resolveEnum(str: string, myParams): {} {
@@ -109,5 +115,21 @@ export class RequestHandler {
 
     console.log(params);
     return params;
+  }
+
+  public checkParameters(myParams) {
+    if (
+      myParams.query === "undefined" ||
+      myParams.query == null ||
+      myParams.query === ""
+    ) {
+      return false;
+    }
+
+    if (!maxResults || maxResults == 0) {
+      return false;
+    }
+
+    return myParams;
   }
 }
