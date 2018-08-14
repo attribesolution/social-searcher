@@ -97,7 +97,6 @@ export class RequestHandler {
 
     Promise.all(myeditList)
       .then(values => {
-        console.log(values);
         res.send(values);
       })
       .catch(err => {
@@ -130,16 +129,6 @@ export class RequestHandler {
     }
     params[maxResults[str]] = myParams.maxResults;
 
-    console.log(params);
     return params;
-  }
-
-  public checkParameters(myParams) {
-    {
-      return false;
-    }
-
-    console.log("Yeh max Results hai: " + maxResults);
-    return true;
   }
 }
