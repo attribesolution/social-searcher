@@ -1,6 +1,7 @@
 /* ******************* Autocomplete **************************/
 export class GoogleTrends {
 
+  private googleTrends ;
   
 
   constructor() {

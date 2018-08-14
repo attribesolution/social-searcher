@@ -70,6 +70,7 @@ export class RequestHandler {
   public handleSocialSearchRequest = (req: Request, res: Response) => {
     // Array of results
     // let result: JSON[] = new Array();
+
     let smpCreator = new SMPfactory();
     let numSocialMediaAccounts: number = 9;
     let myPromises = new Array(numSocialMediaAccounts);
@@ -83,7 +84,11 @@ export class RequestHandler {
         //    result.push(null);  // Increase length of result array
         let myParams = {};
         myPromises[_i] = new Promise((resolve, reject) => {
-          myParams = this.resolveEnum(req.body.smpList[_i], req.body.params);
+          myParams = this.resolveEnum(
+            req.body.smpList[_i],
+            req.body.params,
+            res,
+          );
           this.smp.searchByKeyword(myParams, resolve, reject);
         });
         myeditList.push(myPromises[_i]);
@@ -100,14 +105,30 @@ export class RequestHandler {
       });
   };
 
-  public resolveEnum(str: string, myParams): {} {
+  public resolveEnum(str: string, myParams, res): {} {
     let params = {};
     console.log(str);
     console.log(myParams);
-    params[query[str]] = myParams.query;
+    if (
+      myParams.query !== "undefined" ||
+      myParams.query != null ||
+      myParams.query !== ""
+    ) {
+      params[query[str]] = myParams.query;
+    } else {
+      res.status(403).send("Invalid parameters");
+      res.end();
+    }
+
+    if (
+      myParams.query !== "undefined" ||
+      myParams.query != null ||
+      myParams.maxResults === 0
+    ) {
+      myParams.maxResults = 5;
+    }
     params[maxResults[str]] = myParams.maxResults;
 
-    console.log(params);
     return params;
   }
 }
