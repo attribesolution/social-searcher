@@ -3,20 +3,9 @@ import * as vimeoModule from "../../node_modules/vimeo";
 const Vimeo = vimeoModule.Vimeo;
 import * as dotenv from "dotenv";
 dotenv.config();
-
-interface Param {
-  query ?: string
-  page?,
-  sort?,
-  direction?,
-  per_page?,
-  filter?
-}
-
-
 export class VimeoModule implements SMP {
   private VimeoData: any;
-  private query;
+
   constructor() {}
 
   public makeRequest(lib, params, resolve, reject) {
@@ -70,7 +59,7 @@ export class VimeoModule implements SMP {
   }
 
   public checkParameters(reqData) {
-    let params : Param ;
+    let params = {};
     if (reqData.query) {
       params.query = reqData.query;
     }

@@ -109,24 +109,7 @@ export class RequestHandler {
     let params = {};
     console.log(str);
     console.log(myParams);
-    if (
-      myParams.query !== "undefined" ||
-      myParams.query != null ||
-      myParams.query !== ""
-    ) {
-      params[query[str]] = myParams.query;
-    } else {
-      res.status(403).send("Invalid parameters");
-      res.end();
-    }
-
-    if (
-      myParams.query !== "undefined" ||
-      myParams.query != null ||
-      myParams.maxResults === 0
-    ) {
-      myParams.maxResults = 5;
-    }
+    params[query[str]] = myParams.query;
     params[maxResults[str]] = myParams.maxResults;
 
     return params;
