@@ -76,41 +76,58 @@ export class RequestHandler {
     let myPromises = new Array(numSocialMediaAccounts);
     let myeditList = [];
     // Cycle through all the user requested smps
-    if (this.checkParameters(req.body.params)) {
-      for (var _i = 0; _i < req.body.smpList.length; _i++) {
-        // Generate smp
-        this.smp = smpCreator.generate(req.body.smpList[_i]);
-        if (this.smp) {
-          // Call that smps search and initialize the result var with its result
-          //    result.push(null);  // Increase length of result array
-          let myParams = {};
-          myPromises[_i] = new Promise((resolve, reject) => {
-            myParams = this.resolveEnum(req.body.smpList[_i], req.body.params);
-            this.smp.searchByKeyword(myParams, resolve, reject);
-          });
-          myeditList.push(myPromises[_i]);
-        }
-      }
-
-      Promise.all(myeditList)
-        .then(values => {
-          console.log(values);
-          res.send(values);
-        })
-        .catch(err => {
-          console.log("Reject_Error: " + err);
-          res.send(err);
+    for (var _i = 0; _i < req.body.smpList.length; _i++) {
+      // Generate smp
+      this.smp = smpCreator.generate(req.body.smpList[_i]);
+      if (this.smp) {
+        // Call that smps search and initialize the result var with its result
+        //    result.push(null);  // Increase length of result array
+        let myParams = {};
+        myPromises[_i] = new Promise((resolve, reject) => {
+          myParams = this.resolveEnum(
+            req.body.smpList[_i],
+            req.body.params,
+            res,
+          );
+          this.smp.searchByKeyword(myParams, resolve, reject);
         });
-    } else {
-      res.status(403).send("Invalid parameters");
+        myeditList.push(myPromises[_i]);
+      }
     }
+
+    Promise.all(myeditList)
+      .then(values => {
+        console.log(values);
+        res.send(values);
+      })
+      .catch(err => {
+        console.log("Reject_Error: " + err);
+        res.send(err);
+      });
   };
 
-  public resolveEnum(str: string, myParams): {} {
+  public resolveEnum(str: string, myParams, res): {} {
     let params = {};
     console.log(str);
     console.log(myParams);
-    params[query[str]] = myParams.query;
+    if (
+      myParams.query !== "undefined" ||
+      myParams.query != null ||
+      myParams.query !== ""
+    ) {
+      params[query[str]] = myParams.query;
+    } else {
+      res.status(403).send("Invalid parameters");
+      res.end();
+    }
+
+    if (
+      myParams.query !== "undefined" ||
+      myParams.query != null ||
+      maxResults == 0
+    ) {
+      myParams.maxResults = 5;
+    }
     params[maxResults[str]] = myParams.maxResults;
 
     console.log(params);
@@ -118,18 +135,11 @@ export class RequestHandler {
   }
 
   public checkParameters(myParams) {
-    if (
-      myParams.query === "undefined" ||
-      myParams.query == null ||
-      myParams.query === ""
-    ) {
+    {
       return false;
     }
 
-    if (!maxResults || maxResults == 0) {
-      return false;
-    }
-
-    return myParams;
+    console.log("Yeh max Results hai: " + maxResults);
+    return true;
   }
 }
