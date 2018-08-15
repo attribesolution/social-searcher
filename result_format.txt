@@ -1,11 +1,10 @@
-
 {
     query:"IK",
     timeTaken:date/time,
-    resultList:{ "youtube":{
-                   results:[{ title:"" , url:"", views:"", likes:"", desc:"" }, ... ] },
+    resultList:[ {name:"youtube"
+                   results:[{ title:"", user:"" , url:"", views:"", likes:"", desc:"", time:"" }, ... ] },
 
-                 "twitter":{
-                   results:[{ title:"" , url:"", views:"", likes:"", desc:"" }, ... ] }
-                }
+                 { name:"twitter"
+                   results:[{ title:"", user:"" , url:"", views:"", likes:"", desc:"", time:"" }, ... ] }
+               ]
 }
