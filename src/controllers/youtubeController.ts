@@ -206,11 +206,15 @@ export class Youtube implements SMP {
       auth: this.authentication,
       part: "snippet",
       q: reqData.q,
-      maxResults: reqData.maxResults,
+      maxResults: 5,
       order: "relevance",
       relevanceLanguage: "",
       safeSearch: "none",
     };
+
+    if (reqData.maxResults) {
+      params.maxResults = reqData.maxResults;
+    }
 
     return params;
   }

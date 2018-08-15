@@ -4,7 +4,7 @@ import SMPfactory from "../controllers/SMPFactory";
 import {Promise} from "es6-promise";
 
 import * as uni from "array-unique";
-import { log } from "util";
+import {log} from "util";
 
 const unique = uni.immutable;
 
@@ -15,7 +15,7 @@ enum query {
   dailymotion = "query",
   vimeo = "query",
   tumblr = "query",
-  googleplus = "query"
+  googleplus = "query",
 }
 enum maxResults {
   youtube = "maxResults",
@@ -24,87 +24,87 @@ enum maxResults {
   dailymotion = "limit",
   vimeo = "per_page",
   tumblr = "limit",
-  googleplus = "maxResults"
+  googleplus = "maxResults",
 }
 
-enum smp_title{
+enum smp_title {
   youtube = "snippet.title",
   twitter = "user.name",
   flickr = "title",
   dailymotion = "title",
   vimeo = "name",
   tumblr = "blog_name",
-  googleplus = "title"
+  googleplus = "title",
 }
 
-enum smp_user{
+enum smp_user {
   youtube = "snippet.channelTitle",
   twitter = "user.name",
   flickr = "title",
   dailymotion = "title",
   vimeo = "user.name",
   tumblr = "blog_name",
-  googleplus = "actor.displayName"
+  googleplus = "actor.displayName",
 }
 
-enum smp_url{
+enum smp_url {
   youtube = "snippet.thumbnails.default.url",
   twitter = "source",
-  flickr =  "id",
+  flickr = "id",
   dailymotion = "url",
   vimeo = "link",
   tumblr = "post_url",
-  googleplus = "url"
+  googleplus = "url",
 }
 
-enum smp_desc{
+enum smp_desc {
   youtube = "snippet.description",
   twitter = "text",
-  flickr =  "id",
+  flickr = "id",
   dailymotion = "description",
   vimeo = "description",
   tumblr = "summary",
-  googleplus = "object.attachments"
+  googleplus = "object.attachments",
 }
 
-enum smp_views{
+enum smp_views {
   youtube = "kind",
   twitter = "retweet_count",
-  flickr =  "id",
+  flickr = "id",
   dailymotion = "views_total",
   vimeo = "metadata.connections.likes.total",
   tumblr = "note_count",
-  googleplus = "object.replies.totalItems"
+  googleplus = "object.replies.totalItems",
 }
 
-enum smp_embed{
+enum smp_embed {
   youtube = "id.videoId",
   twitter = "source",
-  flickr =  "owner",
+  flickr = "owner",
   dailymotion = "embed_html",
   vimeo = "embed.html",
   tumblr = "short_url",
-  googleplus = "none"
+  googleplus = "none",
 }
 
-enum smp_time{
+enum smp_time {
   youtube = "snippet.publishedAt",
   twitter = "created_at",
-  flickr =  "id",
+  flickr = "id",
   dailymotion = "created_time",
   vimeo = "created_time",
   tumblr = "date",
-  googleplus = "published"
+  googleplus = "published",
 }
 
-enum smp_resultname{
+enum smp_resultname {
   youtube = "",
   twitter = "statuses",
-  flickr =  "",
+  flickr = "",
   dailymotion = "list",
   vimeo = "",
   tumblr = "",
-  googleplus = ""  //blanks mean api dosent have a specific result name
+  googleplus = "", //blanks mean api dosent have a specific result name
 }
 
 export class RequestHandler {
@@ -178,9 +178,16 @@ export class RequestHandler {
 
     Promise.all(myeditList)
       .then(values => {
-        console.log(this.mapResult( req.body.smpList, values, req.body.params.query, req.body.params.maxResults));
-        
-        res.send( values);
+        console.log(
+          this.mapResult(
+            req.body.smpList,
+            values,
+            req.body.params.query,
+            req.body.params.maxResults,
+          ),
+        );
+
+        res.send(values);
       })
       .catch(err => {
         console.log("Reject_Error: " + err);
@@ -215,39 +222,48 @@ export class RequestHandler {
     return params;
   }
 
-  public mapResult(smpList:string[], data:JSON, q:string, resultCount:number):JSON
-  {
-    console.log('smpList = '+smpList);
-    console.log('resul count = '+resultCount);
-    
-    let result:JSON = {};
+  public mapResult(
+    smpList: string[],
+    data: JSON,
+    q: string,
+    resultCount: number,
+  ): JSON {
+    console.log("smpList = " + smpList);
+    console.log("resul count = " + resultCount);
+
+    let result: JSON = {};
     //{ [string:string]:any, [string:JSON]:any, [string:number]:any }
     // {[key: string]: any}
     result.query = q;
+    result.resultList = new Array(resultCount);
 
-    let i=0; // to traverse each smp
-    for(let smp in smpList)
-    {
+    let i = 0; // to traverse each smp
+    for (let smp of smpList) {
+      console.log("s=" + smp);
+
       // Create results array
-      result.resultList.smp = smp;
-      result.resultList.smp.results = new Array(resultCount);
+      result.resultList[i].name = smp;
+      result.resultList[i].results = new Array(resultCount);
 
       // To traverse the result array of each smp
-      for(let j=0; j < resultCount ; j++){
-
-        result.resultList.smp.results[j].title = data[i].smp_resultname[j].smp_title[smp];
-        result.resultList.smp.results[j].url   = data[i].smp_resultname[j].smp_url[smp];
-        result.resultList.smp.results[j].desc  = data[i].smp_resultname[j].smp_desc[smp];
+      for (let j = 0; j < resultCount; j++) {
+        result.resultList.smp.results[j].title =
+          data[i].smp_resultname[j].smp_title[smp];
+        result.resultList.smp.results[j].url =
+          data[i].smp_resultname[j].smp_url[smp];
+        result.resultList.smp.results[j].desc =
+          data[i].smp_resultname[j].smp_desc[smp];
         // result.resultList..results[j]smp.likes = data[i].smp_resultname[j].smp_likes[smp];
-        result.resultList.smp.results[j].views = data[i].smp_resultname[j].smp_views[smp];
-        result.resultList.smp.results[j].embed = data[i].smp_resultname[j].smp_embed[smp];
-        
+        result.resultList.smp.results[j].views =
+          data[i].smp_resultname[j].smp_views[smp];
+        result.resultList.smp.results[j].embed =
+          data[i].smp_resultname[j].smp_embed[smp];
       }
+      console.log(result);
 
       i++;
     }
 
     return result;
   }
-
 }
