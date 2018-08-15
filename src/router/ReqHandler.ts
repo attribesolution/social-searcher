@@ -121,8 +121,8 @@ export class RequestHandler {
     }
 
     if (
-      myParams.query !== "undefined" ||
-      myParams.query != null ||
+      myParams.maxResults === "undefined" ||
+      myParams.maxResults == null ||
       myParams.maxResults === 0
     ) {
       myParams.maxResults = 5;
