@@ -4,12 +4,12 @@ const Vimeo = vimeoModule.Vimeo;
 import * as dotenv from "dotenv";
 dotenv.config();
 interface Param {
-  query ?: string,
-  page ?: number,
-  sort ?: string,
-  direction ? : string,
-  per_page : number,
-  filter ?: any
+  query ?: string;
+  page ?: number;
+  sort ?: string;
+  direction ? : string;
+  per_page : number;
+  filter ?: any;
 }
 
 
