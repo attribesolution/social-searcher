@@ -268,6 +268,17 @@ export class RequestHandler {
     }
     params[maxResults[str]] = myParams.maxResults;
 
+    if (myParams.sort) {
+      if (myParams.sort === "relevance") {
+        params.sort = relevance[str];
+      }
+      if (myParams.sort === "recency") {
+        params.sort = recency[str];
+      }
+    } else {
+      params.sort = relevance[str];
+    }
+
     return params;
   }
 

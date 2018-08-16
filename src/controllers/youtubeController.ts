@@ -216,6 +216,10 @@ export class Youtube implements SMP {
       params.maxResults = reqData.maxResults;
     }
 
+    if (reqData.sort) {
+      // console.log("hahah yeh bhi chala: " + reqData.sort);
+      params.order = reqData.sort;
+    }
     return params;
   }
 
