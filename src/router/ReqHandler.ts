@@ -50,7 +50,7 @@ enum smp_user {
 enum smp_url {
   youtube = "snippet.thumbnails.default.url",
   twitter = "statuses.source",
-  flickr =  "id",
+  flickr = "id",
   dailymotion = "list.url",
   vimeo = "link",
   tumblr = "post_url",
@@ -60,7 +60,7 @@ enum smp_url {
 enum smp_desc {
   youtube = "snippet.description",
   twitter = "statuses.text",
-  flickr =  "id",
+  flickr = "id",
   dailymotion = "list.description",
   vimeo = "description",
   tumblr = "summary",
@@ -70,7 +70,7 @@ enum smp_desc {
 enum smp_views {
   youtube = "kind",
   twitter = "statuses.retweet_count",
-  flickr =  "id",
+  flickr = "id",
   dailymotion = "list.views_total",
   vimeo = "metadata.connections.likes.total",
   tumblr = "note_count",
@@ -80,7 +80,7 @@ enum smp_views {
 enum smp_embed {
   youtube = "id.videoId",
   twitter = "statuses.source",
-  flickr =  "owner",
+  flickr = "owner",
   dailymotion = "list.embed_html",
   vimeo = "embed.html",
   tumblr = "short_url",
@@ -105,6 +105,56 @@ enum smp_resultname {
   vimeo = "",
   tumblr = "",
   googleplus = "", //blanks mean api dosent have a specific result name
+}
+
+enum relevance {
+  youtube = "relevance",
+  googleplus = "best",
+  twitter = "mixed",
+  vimeo = "relevant",
+  dailymotion = "relevance",
+  flickr = "relevance",
+  tumblr = "",
+}
+
+enum rating {
+  youtube = "rating",
+  googleplus = "best",
+  twitter = "popular",
+  vimeo = "likes",
+  dailymotion = "trending",
+  flickr = "interestingness-asc",
+  tumblr = "",
+}
+
+enum recency {
+  youtube = "date",
+  googleplus = "recent",
+  twitter = "recent",
+  vimeo = "date",
+  dailymotion = "recent",
+  flickr = "date-posted-desc",
+  tumblr = "",
+}
+
+enum title {
+  youtube = "title",
+  googleplus = "best",
+  twitter = "mixed",
+  vimeo = "alphabetical",
+  dailymotion = "relevance",
+  flickr = "relevance",
+  tumblr = "",
+}
+
+enum views {
+  youtube = "viewCount",
+  googleplus = "best",
+  twitter = "popular",
+  vimeo = "play",
+  dailymotion = "trending",
+  flickr = "interestingness-asc",
+  tumblr = "",
 }
 
 export class RequestHandler {
@@ -178,7 +228,14 @@ export class RequestHandler {
 
     Promise.all(myeditList)
       .then(values => {
-        res.send( this.mapResult( req.body.smpList, values, req.body.params.query, req.body.params.maxResults) );
+        res.send(
+          this.mapResult(
+            req.body.smpList,
+            values,
+            req.body.params.query,
+            req.body.params.maxResults,
+          ),
+        );
         // res.send(values);
       })
       .catch(err => {
@@ -214,15 +271,18 @@ export class RequestHandler {
     return params;
   }
 
-  public mapResult(smpList:string[], data:JSON, q:string, resultCount:number):JSON
-  {
-    let result:JSON = {}; //{ [string:string]:any, [string:JSON]:any, [string:number]:any }    // {[key: string]: any}
+  public mapResult(
+    smpList: string[],
+    data: JSON,
+    q: string,
+    resultCount: number,
+  ): JSON {
+    let result: JSON = {}; //{ [string:string]:any, [string:JSON]:any, [string:number]:any }    // {[key: string]: any}
     result.query = q;
     result.resultList = new Array(resultCount);
 
-    let i=0; // to traverse each smp
-    for(let smp of smpList)
-    {
+    let i = 0; // to traverse each smp
+    for (let smp of smpList) {
       // Create results array
       result.resultList[i] = {};
       // Create results array
@@ -231,17 +291,15 @@ export class RequestHandler {
 
       // To traverse the result array of each smp
 
-      for(let j=0; j < resultCount ; j++){
-
+      for (let j = 0; j < resultCount; j++) {
         result.resultList[i].results[j] = {};
         result.resultList[i].results[j].title = data[i][j][smp_title[smp]];
         // result.resultList[i].results[j].user  = data[i][j][smp_user[smp]];
-        result.resultList[i].results[j].url   = data[i][j][smp_url[smp]];
-        result.resultList[i].results[j].desc  = data[i][j][smp_desc[smp]];
+        result.resultList[i].results[j].url = data[i][j][smp_url[smp]];
+        result.resultList[i].results[j].desc = data[i][j][smp_desc[smp]];
         result.resultList[i].results[j].views = data[i][j][smp_views[smp]];
         result.resultList[i].results[j].embed = data[i][j][smp_embed[smp]];
-        result.resultList[i].results[j].time  = data[i][j][smp_time[smp]];
-        
+        result.resultList[i].results[j].time = data[i][j][smp_time[smp]];
       }
       i++;
     }
