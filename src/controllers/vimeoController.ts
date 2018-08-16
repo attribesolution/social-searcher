@@ -4,14 +4,13 @@ const Vimeo = vimeoModule.Vimeo;
 import * as dotenv from "dotenv";
 dotenv.config();
 interface Param {
-  query ?: string;
-  page ?: number;
-  sort ?: string;
-  direction ? : string;
-  per_page : number;
-  filter ?: any;
+  query?: string;
+  page?: number;
+  sort?: string;
+  direction?: string;
+  per_page: number;
+  filter?: any;
 }
-
 
 export class VimeoModule implements SMP {
   private VimeoData: any;
@@ -26,6 +25,7 @@ export class VimeoModule implements SMP {
         // These videos will be sorted by most relevant to least relevant.
         path: "/videos",
         query: params,
+        sort: params.sort,
       },
       (error, body, statusCode, headers) => {
         if (error) {
@@ -68,8 +68,9 @@ export class VimeoModule implements SMP {
   }
 
   public checkParameters(reqData) {
-    let params : Param = {
-      per_page : 10
+    let params: Param = {
+      per_page: 5,
+      sort: "relevant",
     };
     if (reqData.query) {
       params.query = reqData.query;
@@ -85,8 +86,6 @@ export class VimeoModule implements SMP {
     }
     if (reqData.sort) {
       params.sort = reqData.sort;
-    } else {
-      params.sort = "relevant";
     }
     if (reqData.direction) {
       params.direction = reqData.direction;
@@ -95,8 +94,6 @@ export class VimeoModule implements SMP {
     }
     if (reqData.per_page) {
       params.per_page = reqData.per_page;
-    } else {
-      params.per_page = 10;
     }
     if (reqData.filter) {
       params.filter = reqData.filter;

@@ -73,7 +73,7 @@ export class GooglePlus implements SMP {
    */
 
   public searchByKeyword(reqData, resolve, reject) {
-    //const params = this.checkParameters(reqData) as any;
+    const params = this.checkParameters(reqData) as any;
 
     const service = google.plus({
       auth: process.env.GP_AUTH, // specify your API key here
@@ -81,7 +81,7 @@ export class GooglePlus implements SMP {
     });
 
     service.activities
-      .search(reqData)
+      .search(params)
       .then(response => {
         // res.render('index', {youtube_data: response.data.items, data_type: 'youtube'});
         this.googlePlusData = response.data.items;
@@ -169,27 +169,27 @@ export class GooglePlus implements SMP {
 
   private checkParameters(reqData) {
     let params: Param = {
-      maxResults: "10",
+      maxResults: "5",
+      orderBy: reqData.orderBy,
     };
 
     if (reqData.query) {
       params.query = reqData.query;
     }
-    if (reqData.gp_lang) {
-      params.language = reqData.gp_lang;
+    if (reqData.language) {
+      params.language = reqData.language;
     }
-    if (reqData.gp_maxResults) {
-      params.maxResults = reqData.gp_maxResults;
+    if (reqData.maxResults) {
+      params.maxResults = reqData.maxResults;
     } else {
-      params.maxResults = "10";
+      params.maxResults = "5";
     }
-    if (reqData.gp_orderBy) {
-      params.orderBy = reqData.gp_orderBy;
+    if (reqData.sort) {
+      params.orderBy = reqData.sort;
     }
-    if (reqData.gp_pageToken) {
-      params.pageToken = reqData.gp_pageToken;
+    if (reqData.pageToken) {
+      params.pageToken = reqData.pageToken;
     }
-
     return params;
   }
 } // End of Class

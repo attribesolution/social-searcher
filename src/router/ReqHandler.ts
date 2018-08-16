@@ -151,7 +151,7 @@ enum views {
   youtube = "viewCount",
   googleplus = "best",
   twitter = "popular",
-  vimeo = "play",
+  vimeo = "plays",
   dailymotion = "trending",
   flickr = "interestingness-asc",
   tumblr = "",
@@ -228,15 +228,15 @@ export class RequestHandler {
 
     Promise.all(myeditList)
       .then(values => {
-        res.send(
-          this.mapResult(
-            req.body.smpList,
-            values,
-            req.body.params.query,
-            req.body.params.maxResults,
-          ),
-        );
-        // res.send(values);
+        // res.send(
+        //   this.mapResult(
+        //     req.body.smpList,
+        //     values,
+        //     req.body.params.query,
+        //     req.body.params.maxResults,
+        //   ),
+        // );
+        res.send(values);
       })
       .catch(err => {
         console.log("Reject_Error: " + err);
@@ -246,8 +246,6 @@ export class RequestHandler {
 
   public resolveEnum(str: string, myParams, res): {} {
     let params = {};
-    console.log(str);
-    console.log(myParams);
     if (
       myParams.query !== "undefined" ||
       myParams.query != null ||

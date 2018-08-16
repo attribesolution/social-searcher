@@ -42,6 +42,7 @@ export class DailyMotion implements SMP {
   public searchByKeyword(reqData: any, resolve: any, reject: any) {
     // this.resolve=resolve;
     // this.reject=reject;
+    //let myParams = this.checkParameters(reqData);
     const self = this;
     new Promise((res, rej) => {
       client.createToken(() => this.next(resolve, reject, reqData));
@@ -49,7 +50,21 @@ export class DailyMotion implements SMP {
   }
 
   private checkParameters(reqData: any) {
-    return reqData.query;
+    let myParams = {};
+
+    if (reqData.query) {
+      myParams.search = reqData.query;
+    }
+
+    if (reqData.sort) {
+      myParams.sort = reqData.sort;
+    }
+
+    if (reqData.maxResults) {
+      myParams.limit = reqData.maxResults;
+    }
+
+    return myParams;
   }
 
   // If you're using 'password' or 'authorzation_code' (with uri/code pair)
@@ -59,6 +74,7 @@ export class DailyMotion implements SMP {
   private next(resolve: any, reject: any, reqData: any) {
     // Now you should be able to make fully authenticated requests to the DM API
     // console.log(datum);
+    console.log("hi here: " + reqData.sort);
     const self = this;
     client.get(
       "/videos",
@@ -77,6 +93,7 @@ export class DailyMotion implements SMP {
         // fields: ['list']
         limit: reqData.limit || 10,
         search: reqData.query,
+        sort: reqData.sort || "relevance",
       },
       (err: any, req: any, data: any) => {
         if (err) {

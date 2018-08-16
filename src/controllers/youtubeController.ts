@@ -217,7 +217,6 @@ export class Youtube implements SMP {
     }
 
     if (reqData.sort) {
-      console.log("yaha hai asb: " + reqData.sort);
       params.order = reqData.sort;
     }
     return params;
