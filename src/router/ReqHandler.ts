@@ -268,20 +268,28 @@ export class RequestHandler {
     }
     params[maxResults[str]] = myParams.maxResults;
 
-    if (myParams.sort) {
-      if (myParams.sort === "relevance") {
-        params.sort = relevance[str];
-      }
-      if (myParams.sort === "recency") {
-        params.sort = recency[str];
-      }
-    } else {
-      params.sort = relevance[str];
-    }
+    params.sort = this.sortType(myParams.sort);
 
     return params;
   }
 
+  public sortType(str: string) {
+    if (str) {
+      if (str === "rating") {
+        return rating[str];
+      } else if (str === "recency") {
+        return recency[str];
+      } else if (str === "title") {
+        return title[str];
+      } else if (str === "views") {
+        return views[str];
+      } else {
+        return relevance[str];
+      }
+    } else {
+      return relevance[str];
+    }
+  }
   public mapResult(
     smpList: string[],
     data: JSON,
