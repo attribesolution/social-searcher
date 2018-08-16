@@ -39,8 +39,22 @@ export class VimeoModule implements SMP {
     );
   }
 
-  public normalizeResult(data: JSON) {
-    throw new Error("Method not implemented.");
+  public normalizeResult(data: JSON): JSON[] {
+    let resArray = [];
+    for (let i = 0; i < data.length; i++) {
+      let vm = data[i];
+      let params = {
+        title: vm.name,
+        user: vm.user.name,
+        url: vm.link,
+        views: vm.metadata.connections.likes.total,
+        desc: vm.description,
+        embed: vm.embed.html,
+        created_time: vm.created_time,
+      };
+      resArray.push(params);
+    }
+    return resArray;
   }
 
   public searchByKeyword(reqData, resolve, reject) {

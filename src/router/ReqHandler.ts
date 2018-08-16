@@ -228,15 +228,15 @@ export class RequestHandler {
 
     Promise.all(myeditList)
       .then(values => {
-        // res.send(
-        //   this.mapResult(
-        //     req.body.smpList,
-        //     values,
-        //     req.body.params.query,
-        //     req.body.params.maxResults,
-        //   ),
-        // );
-        res.send(values);
+        res.send(
+          this.new_mapResult(
+            req.body.smpList,
+            values,
+            req.body.params.query,
+            req.body.params.maxResults,
+          ),
+        );
+        //        res.send(values);
       })
       .catch(err => {
         console.log("Reject_Error: " + err);
@@ -288,15 +288,27 @@ export class RequestHandler {
       return relevance[platform];
     }
   }
-  public mapResult(
+
+  /**
+   *
+   * @param smpList
+   * @param data
+   * @param q
+   * @param resultCount
+   * @description function to map result data to a simpler format
+   */
+  public new_mapResult(
     smpList: string[],
     data: JSON,
     q: string,
     resultCount: number,
   ): JSON {
-    let result: JSON = {}; //{ [string:string]:any, [string:JSON]:any, [string:number]:any }    // {[key: string]: any}
+    let result: JSON = {};
+    let platform: SMP;
+    let factory: SMPfactory = new SMPfactory();
+
     result.query = q;
-    result.resultList = new Array(resultCount);
+    result.resultList = new Array(smpList.length);
 
     let i = 0; // to traverse each smp
     for (let smp of smpList) {
@@ -306,18 +318,12 @@ export class RequestHandler {
       result.resultList[i].name = smp;
       result.resultList[i].results = new Array(resultCount);
 
-      // To traverse the result array of each smp
+      // create smp
+      platform = factory.generate(smp);
 
-      for (let j = 0; j < resultCount; j++) {
-        result.resultList[i].results[j] = {};
-        result.resultList[i].results[j].title = data[i][j][smp_title[smp]];
-        // result.resultList[i].results[j].user  = data[i][j][smp_user[smp]];
-        result.resultList[i].results[j].url = data[i][j][smp_url[smp]];
-        result.resultList[i].results[j].desc = data[i][j][smp_desc[smp]];
-        result.resultList[i].results[j].views = data[i][j][smp_views[smp]];
-        result.resultList[i].results[j].embed = data[i][j][smp_embed[smp]];
-        result.resultList[i].results[j].time = data[i][j][smp_time[smp]];
-      }
+      // Query each smps noramlizer and initialize its result
+      result.resultList[i].results = platform.normalizeResult(data[i]);
+
       i++;
     }
     return result;

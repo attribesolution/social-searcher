@@ -120,7 +120,21 @@ export class Youtube implements SMP {
   // Our Required Functions Starts here
 
   normalizeResult(data: JSON) {
-    throw new Error("Method not implemented.");
+    let resArray = [];
+    for (let i = 0; i < data.length; i++) {
+      let yt = data[i].snippet;
+      let params = {
+        title: yt.title,
+        user: yt.channelTitle,
+        url: yt.thumbnails.default.url,
+        views: yt.kind,
+        desc: yt.description,
+        embed: data[i].id.videoId,
+        created_time: yt.publishedAt,
+      };
+      resArray.push(params);
+    }
+    return resArray;
   }
 
   channelsList(auth, requestData, res) {

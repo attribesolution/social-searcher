@@ -163,8 +163,21 @@ export class GooglePlus implements SMP {
 
   // Our Required Functions Starts here
 
-  normalizeResult(data: JSON) {
-    throw new Error("Method not implemented.");
+  public normalizeResult(data: JSON): JSON[] {
+    let resArray = [];
+    for (let i = 0; i < data.length; i++) {
+      let gp = data[i];
+      let params = {
+        title: gp.title,
+        user: gp.actor.displayName,
+        url: gp.url,
+        views: gp.object.replies.totalItems,
+        desc: gp.object.attachments,
+        created_time: gp.published,
+      };
+      resArray.push(params);
+    }
+    return resArray;
   }
 
   private checkParameters(reqData) {

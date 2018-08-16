@@ -26,9 +26,21 @@ export class Twitter implements SMP {
       },
     );
   }
-
-  normalizeResult(data: JSON) {
-    throw new Error("Method not implemented.");
+  public normalizeResult(data: JSON): JSON[] {
+    let filteredParams = [];
+    for (let i = 0; i < data.statuses.length; i++) {
+      let tweet = data.statuses[i];
+      let params = {
+        title: tweet.user.name,
+        user: tweet.user.name,
+        url: tweet.sources,
+        views: tweet.retweet_count,
+        desc: tweet.text,
+        created_time: tweet.created_at,
+      };
+      filteredParams.push(params);
+    }
+    return filteredParams;
   }
 
   public config() {

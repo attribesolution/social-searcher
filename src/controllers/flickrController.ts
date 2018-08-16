@@ -32,9 +32,29 @@ export class Flickr implements SMP {
       });
     });
   }
-
   public normalizeResult(data: JSON) {
-    throw new Error("Method not implemented.");
+    let filteredParams = [];
+    for (let i = 0; i < data.length; i++) {
+      let params = {
+        title: data[i].title,
+        user: data[i].owner,
+        url:
+          "https://farm" +
+          data[i].farm +
+          ".staticflickr.com/" +
+          data[i].server +
+          "/" +
+          data[i].id +
+          "_" +
+          data[i].secret +
+          ".jpg",
+        views: "no views",
+        desc: "no desc",
+        created_time: "no created_time",
+      };
+      filteredParams.push(params);
+    }
+    return filteredParams;
   }
 
   // public checkParameters(reqData) {

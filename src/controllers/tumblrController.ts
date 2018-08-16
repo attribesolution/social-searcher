@@ -32,8 +32,22 @@ export class Tumblr implements SMP {
     });
   }
 
-  public normalizeResult(data: JSON) {
-    throw new Error("Method not implemented.");
+  public normalizeResult(data: JSON): JSON[] {
+    let resArray = [];
+    for (let i = 0; i < data.length; i++) {
+      let tm = data[i];
+      let params = {
+        title: tm.blog_name,
+        user: tm.blog_name,
+        url: tm.post_url,
+        views: tm.note_count,
+        desc: tm.summary,
+        embed: tm.short_url,
+        created_time: tm.date,
+      };
+      resArray.push(params);
+    }
+    return resArray;
   }
 
   // public checkParameters(reqData) {

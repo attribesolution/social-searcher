@@ -12,7 +12,23 @@ export class DailyMotion implements SMP {
   private scope: any;
   private dailymotionData: any;
 
-  public normalizeResult() {}
+  public normalizeResult(data: JSON): JSON[] {
+    let resArray = [];
+    for (let i = 0; i < data.list.length; i++) {
+      let dm = data.list[i];
+      let params = {
+        title: dm.title,
+        user: dm.title,
+        url: dm.url,
+        views: dm.views_total,
+        desc: dm.description,
+        embed: dm.embed_html,
+        created_time: dm.created_time,
+      };
+      resArray.push(params);
+    }
+    return resArray;
+  }
 
   constructor() {
     this.clientId = process.env.DM_CLIENT_ID; // Fill yours
@@ -74,7 +90,6 @@ export class DailyMotion implements SMP {
   private next(resolve: any, reject: any, reqData: any) {
     // Now you should be able to make fully authenticated requests to the DM API
     // console.log(datum);
-    console.log("hi here: " + reqData.sort);
     const self = this;
     client.get(
       "/videos",
