@@ -268,26 +268,26 @@ export class RequestHandler {
     }
     params[maxResults[str]] = myParams.maxResults;
 
-    params.sort = this.sortType(myParams.sort);
+    params.sort = this.sortType(myParams.sort, str);
 
     return params;
   }
 
-  public sortType(str: string) {
+  public sortType(str: string, platform: string) {
     if (str) {
       if (str === "rating") {
-        return rating[str];
+        return rating[platform];
       } else if (str === "recency") {
-        return recency[str];
+        return recency[platform];
       } else if (str === "title") {
-        return title[str];
+        return title[platform];
       } else if (str === "views") {
-        return views[str];
+        return views[platform];
       } else {
-        return relevance[str];
+        return relevance[platform];
       }
     } else {
-      return relevance[str];
+      return relevance[platform];
     }
   }
   public mapResult(
