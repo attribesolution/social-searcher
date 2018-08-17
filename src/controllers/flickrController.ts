@@ -17,7 +17,6 @@ export class Flickr implements SMP {
 
   public searchByKeyword(reqData, resolve, reject) {
     // let myParams = this.checkParameters(reqData);
-    console.log(reqData.sort);
     flickrapi.tokenOnly(flickrOptions, (error, flickr) => {
       // we can now use "flickr" as our API object
       flickr.photos.search(reqData, (err, result) => {
